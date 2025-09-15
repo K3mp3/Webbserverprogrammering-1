@@ -3,17 +3,19 @@ import cors from "cors" // Tillåter förfrågningar fån andra domäner (Cross-
 import fs from "fs" // Node.js filsystem-modul för att läsa och skriva filer
 import { fileURLToPath } from "url" // Hjälper oss att få sökvägen till den aktuella filen
 import { dirname } from "path" // Hjälper oss att få sökvägen till den aktuella mappen
-import path from 'path'
 
 const __filename = fileURLToPath(import.meta.url) // Hjälper oss att få sökvägen till den aktuella filen
 const __dirname = dirname(__filename) // Hjälper oss att få sökvägen till den aktuella mappen
 
 const app = express() // Skapa Express-applikationen
 
-app.use(cors())
+app.use(cors({
+    origin: 'https://5173-firebase-wesweb01-1756207605389.cluster-ha3ykp7smfgsutjta5qfx7ssnm.cloudworkstations.dev',
+    credentials: true
+  }));
 app.use(express.json())
 app.use(express.urlencoded({ extended: false}))
-app.use(express.static(path.join(__dirname, '../klient')))
+
 
 
 const saveMessage = (messageData) => {
