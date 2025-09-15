@@ -3,6 +3,7 @@ import cors from "cors" // Tillåter förfrågningar fån andra domäner (Cross-
 import fs from "fs" // Node.js filsystem-modul för att läsa och skriva filer
 import { fileURLToPath } from "url" // Hjälper oss att få sökvägen till den aktuella filen
 import { dirname } from "path" // Hjälper oss att få sökvägen till den aktuella mappen
+import path from 'path'
 
 const __filename = fileURLToPath(import.meta.url) // Hjälper oss att få sökvägen till den aktuella filen
 const __dirname = dirname(__filename) // Hjälper oss att få sökvägen till den aktuella mappen
@@ -12,6 +13,8 @@ const app = express() // Skapa Express-applikationen
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: false}))
+app.use(express.static(path.join(__dirname, '../klient')))
+
 
 const saveMessage = (messageData) => {
  const filePath = `${__dirname}/messages.json` // Skapa fullständign sökväg till JSON-fil
@@ -32,6 +35,7 @@ const saveMessage = (messageData) => {
 
 app.post("/messages", (req, res) => {
     const {name, message} = req.body
+    console.log("hejsan", name, message);
 
     try {
         const messageData = {
