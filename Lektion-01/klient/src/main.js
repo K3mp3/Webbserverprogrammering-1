@@ -6,8 +6,6 @@ const submitBtn = document.querySelector("button[type='submit']"); // Läs in su
 let inputName = form.elements.name.value; // Läser in det som skrivs i namn input
 let inputMessage = form.elements.message.value; //Läser in det som skrivs i message input
 
-const backendUrl = "/messages";
-
 const checkInputs = () => {
   inputName = form.elements.name.value;
   inputMessage = form.elements.message.value;
@@ -31,7 +29,7 @@ form.addEventListener("submit", async (e) => {
 
   try {
     const response = await axios.post(
-      `http://localhost:3000/messages`,
+      "http://localhost:3000/messages",
       messageData
     );
 
