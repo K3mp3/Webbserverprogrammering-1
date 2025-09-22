@@ -44,3 +44,9 @@ form.addEventListener("submit", async (e) => {
     alert("Kunde inte skicka meddelandet");
   }
 });
+
+window.addEventListener("load", async (e) => {
+  try {
+    const response = await axios.get("http://localhost:3000/messages");
+  } catch (error) {}
+});

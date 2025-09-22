@@ -31,6 +31,22 @@ const saveMessage = (messageData) => {
   fs.writeFileSync(filePath, JSON.stringify(messages, null, 2));
 };
 
+const getMessages = () => {
+  const filePath = `${__dirname}/messages.json`;
+
+  try {
+    if (fs.existsSync(filePath)) {
+      const data = fs.readFileSync(filePath, "utf-8");
+      return JSON.parse(data);
+    }
+
+    return [];
+  } catch (error) {
+    console.log("Fel vid läsning av meddelanden:", error);
+    return [];
+  }
+};
+
 app.post("/messages", (req, res) => {
   const { name, message } = req.body;
   console.log("hejsan", name, message);
@@ -49,6 +65,15 @@ app.post("/messages", (req, res) => {
     console.log("Error: ", error);
     res.status(500).json("Inernal server error");
   }
+});
+
+app.get("/messages", (req, res) => {
+  console.log("Hämta meddelanden");
+
+  try {
+    const messages = getMessages();
+    console.log("Messages", messages);
+  } catch (error) {}
 });
 
 export default app;
