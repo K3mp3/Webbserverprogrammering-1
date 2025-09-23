@@ -73,7 +73,13 @@ app.get("/messages", (req, res) => {
   try {
     const messages = getMessages();
     console.log("Messages", messages);
-  } catch (error) {}
+
+    res.status(200).json({ success: true, data: messages });
+  } catch (error) {
+    console.log("Fel vid hämtning av meddelanden:", error);
+
+    res.status(500).json({ success: false });
+  }
 });
 
 export default app;

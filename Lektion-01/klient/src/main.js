@@ -14,6 +14,35 @@ const checkInputs = () => {
   else submitBtn.disabled = false;
 };
 
+const displayMessages = (messages) => {
+  console.log({ messages: messages });
+
+  const messagesContainer = document.querySelector(".messages");
+
+  console.log({ messagesContainer: messagesContainer });
+
+  messagesContainer.innerHTML = "";
+
+  messages.forEach((msg) => {
+    console.log({ msg: msg });
+
+    const messageDiv = document.createElement("div");
+    messageDiv.className = "message";
+
+    const date = new Date(msg.timestamp).toLocaleString("sv-SE");
+
+    messageDiv.innerHTML = `
+      <div class="message-header">
+        <strong>${msg.name}</strong>
+        <span class="timestamp">${date}</span>
+      </div>
+      <p class="message-content">${msg.message}</p>
+    `;
+
+    messagesContainer.appendChild(messageDiv);
+  });
+};
+
 form.addEventListener("input", checkInputs);
 
 form.addEventListener("submit", async (e) => {
@@ -48,5 +77,9 @@ form.addEventListener("submit", async (e) => {
 window.addEventListener("load", async (e) => {
   try {
     const response = await axios.get("http://localhost:3000/messages");
+
+    console.log({ response: response.data.data });
+
+    displayMessages(response.data.data);
   } catch (error) {}
 });
