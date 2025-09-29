@@ -3,6 +3,7 @@ import express from "express";
 import fs from "fs"; // Node.js filsystem-modul för att läsa och skriva filer
 import { dirname } from "path"; // Hjälper oss att få sökvägen till den aktuella mappen
 import { fileURLToPath } from "url"; // Hjälper oss att få sökvägen till den aktuella filen
+import { v4 as uuidv4 } from "uuid"; // Används för att skapa unika ID:n
 
 const __filename = fileURLToPath(import.meta.url); // Hjälper oss att få sökvägen till den aktuella filen
 const __dirname = dirname(__filename); // Hjälper oss att få sökvägen till den aktuella mappen
@@ -51,11 +52,14 @@ app.post("/messages", (req, res) => {
   const { name, message } = req.body;
   console.log("hejsan", name, message);
 
+  const id = uuidv4();
+
   try {
     const messageData = {
       name,
       message,
       timestamp: new Date().toISOString(),
+      id,
     };
 
     saveMessage(messageData);
