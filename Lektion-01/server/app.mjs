@@ -62,7 +62,14 @@ const deleteMessage = (messageId) => {
     if (messages.length === filteredMessages.length) {
       return false; // Inget meddelande med det ID:t hittades
     }
-  } catch (error) {}
+
+    // Spara den uppdaterade arrayen (Utan det raderade meddelandet)
+    fs.writeFileSync(filePath, JSON.stringify(filteredMessages, null, 2));
+    return true;
+  } catch (error) {
+    console.log("Fel vid radering:", error);
+    return false;
+  }
 };
 
 app.post("/messages", (req, res) => {
@@ -89,11 +96,8 @@ app.post("/messages", (req, res) => {
 });
 
 app.get("/messages", (req, res) => {
-  console.log("Hämta meddelanden");
-
   try {
     const messages = getMessages();
-    console.log("Messages", messages);
 
     res.status(200).json({ success: true, data: messages });
   } catch (error) {
@@ -103,7 +107,8 @@ app.get("/messages", (req, res) => {
   }
 });
 
-app.delete("messages/:id", (req, res) => {
+app.delete("/messages/:id", (req, res) => {
+  console.log("radera meddelande");
   const messageId = req.params.id;
 
   console.log({ ID: messageId });
