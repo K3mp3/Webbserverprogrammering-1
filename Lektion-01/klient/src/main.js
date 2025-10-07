@@ -38,6 +38,7 @@ const displayMessages = (messages) => {
       </div>
       <p class="message-content">${msg.message}</p>
       <button class="delete-btn" data-id="${msg.id}">Radera</button>
+      <button class="update-btn" data-id="${msg.id}">uppdatera</button>
     `;
 
     messagesContainer.appendChild(messageDiv);
