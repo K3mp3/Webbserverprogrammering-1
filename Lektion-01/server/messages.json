@@ -1,8 +1,9 @@
 [
   {
-    "name": "Melvin",
-    "message": "Hej hej",
+    "name": "John",
+    "message": "Hejsan hoppsan",
     "timestamp": "2025-10-06T08:37:27.674Z",
-    "id": "0cbd5868-4163-4826-8ff9-63cf2b448554"
+    "id": "0cbd5868-4163-4826-8ff9-63cf2b448554",
+    "updatedAt": "2025-10-13T08:52:02.962Z"
   }
 ]
